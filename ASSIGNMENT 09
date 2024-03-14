@@ -1,0 +1,73 @@
+1)WRITE A QUERY THAT LISTS EACH ORDER NUMBER FOLLOWED BY THE NAME OF THE CUSTOMER WHO MADE THE ORDER
+
+kd4_rahul_83497@localhost>select ORDERS.Onum,CUSTOMERS.Cname from ORDERS join CUSTOMERS on ORDERS.Cnum=CUSTOMERS.Cnum;
++------+----------+
+| Onum | Cname    |
++------+----------+
+| 3001 | Cisneros |
+| 3003 | Hoffaman |
+| 3002 | Pereira  |
+| 3005 | Liu      |
+| 3006 | Cisneros |
+| 3009 | Giovanni |
+| 3007 | Grass    |
+| 3008 | Clemens  |
+| 3010 | Grass    |
+| 3011 | Clemens  |
++------+----------+
+10 rows in set (0.01 sec)
+
+
+==========================================================================================================================================================================================================
+2)WRITE A QUERY THAT GIVES THE NAMES OF BOTH THE SALESPERSON AND THE CUSTOMER FOR EACH ORDER ALONG WITH THE ORDER NUMBER.
+
+kd4_rahul_83497@localhost>SELECT ORDERS.Onum, CUSTOMERS.cname, SALESPEOPLE.sname FROM ORDERS JOIN CUSTOMERS ON ORDERS.cnum = CUSTOMERS.cnum JOIN SALESPEOPLE ON ORDERS.snum = SALESPEOPLE.snum order by 1;
++------+----------+---------+
+| Onum | cname    | sname   |
++------+----------+---------+
+| 3001 | Cisneros | Rifkin  |
+| 3002 | Pereira  | Motika  |
+| 3003 | Hoffaman | Peel    |
+| 3005 | Liu      | Serres  |
+| 3006 | Cisneros | Rifkin  |
+| 3007 | Grass    | Serres  |
+| 3008 | Clemens  | Peel    |
+| 3009 | Giovanni | Axelrod |
+| 3010 | Grass    | Serres  |
+| 3011 | Clemens  | Peel    |
++------+----------+---------+
+10 rows in set (0.00 sec)
+
+
+==========================================================================================================================================================================================================
+3)WRITE A QUERY THAT PRODUCES ALL CUSTOMERS SERVICED BY SALESPEOPLE WITH A COMMISSION ABOVE 128. OUTPUT THE CUSTOMER'S NAME, THE SALESPERSON'S NAME, AND THE SALESPERSON'S RATE OF COMMISSION.
+
+kd4_rahul_83497@localhost>select Cname,Sname,Comm from CUSTOMERS,SALESPEOPLE where CUSTOMERS.Snum=SALESPEOPLE.Snum and SALESPEOPLE.Comm>0.12;
++----------+--------+------+
+| Cname    | Sname  | Comm |
++----------+--------+------+
+| Liu      | Serres | 0.13 |
+| Grass    | Serres | 0.13 |
+| Cisneros | Rifkin | 0.15 |
++----------+--------+------+
+3 rows in set (0.00 sec)
+
+
+==========================================================================================================================================================================================================
+4)WRITE A QUERY THAT CALCULATES THE AMOUNT OF THE SALESPERSON'S COMMISSION ON EACH ORDER BY A CUSTOMER WITH A RATING ABOVE 100.
+
+kd4_rahul_83497@localhost>SELECT Onum, Cname, Sname, Amt * comm AS commission_amount FROM ORDERS JOIN CUSTOMERS ON ORDERS.cnum = CUSTOMERS.cnum JOIN SALESPEOPLE ON ORDERS.snum = SALESPEOPLE.snum WHERE CUSTOMERS.rating > 100;
++------+----------+---------+-------------------+
+| Onum | Cname    | Sname   | commission_amount |
++------+----------+---------+-------------------+
+| 3010 | Grass    | Serres  |            170.29 |
+| 3007 | Grass    | Serres  |              9.85 |
+| 3005 | Liu      | Serres  |            670.86 |
+| 3006 | Cisneros | Rifkin  |            164.72 |
+| 3001 | Cisneros | Rifkin  |              2.80 |
+| 3009 | Giovanni | Axelrod |            171.32 |
++------+----------+---------+-------------------+
+6 rows in set (0.00 sec)
+
+
+===============================================================================================END========================================================================================================

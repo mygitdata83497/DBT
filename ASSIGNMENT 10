@@ -1,0 +1,27 @@
+1)WRITE A QUERY THAT PRODUCES ALL PAIRS OF SALESPEOPLE WHO ARE LIVING IN THE SAME CITY. EXCLUDE COMBINATIONS OF SALESPEOPLE WITH THEMSELVES AS WELL AS DUPLICATE ROWS WITH THE ORDER REVERSED.
+
+Database changed
+kd4_rahul_83497@localhost>SELECT DISTINCT SP1.snum AS snum1, SP1.sname AS sname1, SP1.city AS city, SP2.snum AS snum2, SP2.sname AS sname2 FROM SALESPEOPLE SP1 JOIN SALESPEOPLE SP2 ON SP1.city = SP2.city WHERE SP1.snum < SP2.snum;
++-------+--------+--------+-------+--------+
+| snum1 | sname1 | city   | snum2 | sname2 |
++-------+--------+--------+-------+--------+
+|  1001 | Peel   | London |  1004 | Motika |
++-------+--------+--------+-------+--------+
+1 row in set (0.01 sec)
+
+
+==========================================================================================================================================================================================================
+2)WRITE A QUERY THAT PRODUCES THE NAMES AND CITIES OF ALL CUSTOMERS WITH THE SAME RATING AS HOFFMAN.
+
+kd4_rahul_83497@localhost>select a.Cname ,b.City from CUSTOMERS a, CUSTOMERS b where a.Rating=b.Rating and b.Cname= "Hoffaman";
++----------+--------+
+| Cname    | City   |
++----------+--------+
+| Hoffaman | London |
+| Clemens  | London |
+| Pereira  | London |
++----------+--------+
+3 rows in set (0.00 sec)
+
+
+==============================================================================================END=========================================================================================================

@@ -1,0 +1,70 @@
+1)ASSUME EACH SALESPERSON HAS A 12% COMMISSION. WRITE A QUERY ON THE ORDERS TABLE THAT WILL PRODUCE THE ORDER NUMBER, THE SALESPERSON NUMBER, AND THE AMOUNT OF THE SALESPERSON'S COMMISSION FOR THAT ORDER.
+
+kd4_rahul_83497@localhost>select Onum,Snum,Amt*0.12 as SALESPERSON_COMMISSION from ORDERS ;
++------+------+------------------------+
+| Onum | Snum | SALESPERSON_COMMISSION |
++------+------+------------------------+
+| 3001 | 1007 |                   2.24 |
+| 3003 | 1001 |                  92.06 |
+| 3002 | 1004 |                 228.01 |
+| 3005 | 1002 |                 619.25 |
+| 3006 | 1007 |                 131.78 |
+| 3009 | 1003 |                 205.59 |
+| 3007 | 1002 |                   9.09 |
+| 3008 | 1001 |                 566.76 |
+| 3010 | 1002 |                 157.19 |
+| 3011 | 1001 |                1187.03 |
++------+------+------------------------+
+10 rows in set (0.00 sec)
+
+
+==========================================================================================================================================================================================================
+2)WRITE A QUERY ON THE CUSTOMERS TABLE THAT WILL FIND THE HIGHEST RATING IN EACH CITY. PUT THE OUTPUT IN THIS FORM:
+FOR THE CITY (CITY), THE HIGHEST RATING IS : (RATING).
+
+kd4_rahul_83497@localhost>select concat('For the city ', (city),', the highest rating is:',max(rating)) from CUSTOMERS group by City;
++------------------------------------------------------------------------+
+| concat('For the city ', (city),', the highest rating is:',max(rating)) |
++------------------------------------------------------------------------+
+| For the city London, the highest rating is:100                         |
+| For the city Rome, the highest rating is:200                           |
+| For the city San Jose, the highest rating is:300                       |
+| For the city Berlin, the highest rating is:300                         |
++------------------------------------------------------------------------+
+4 rows in set (0.00 sec)
+
+
+==========================================================================================================================================================================================================
+3)WRITE A QUERY THAT LISTS CUSTOMERS IN DESCENDING ORDER OF RATING. OUTPUT THE RATING FIELD FIRST, FOLLOWED BY THE CUSTOMER'S NAME AND NUMBER.
+
+kd4_rahul_83497@localhost>select rating,Cname,Cnum from CUSTOMERS order by Rating desc;
++--------+----------+------+
+| rating | Cname    | Cnum |
++--------+----------+------+
+|    300 | Grass    | 2004 |
+|    300 | Cisneros | 2008 |
+|    200 | Giovanni | 2002 |
+|    200 | Liu      | 2003 |
+|    100 | Hoffaman | 2001 |
+|    100 | Clemens  | 2006 |
+|    100 | Pereira  | 2007 |
++--------+----------+------+
+7 rows in set (0.00 sec)
+
+
+==========================================================================================================================================================================================================
+4)WRITE A QUERY THAT TOTALS THE ORDERS FOR EACH DAY AND PLACES THE RESULTS IN DESCENDING ORDER.
+
+kd4_rahul_83497@localhost>select Odate,count(snum)from ORDERS group by Odate order by count(snum)desc;
++------------+-------------+
+| Odate      | count(snum) |
++------------+-------------+
+| 1990-10-03 |           5 |
+| 1990-10-04 |           2 |
+| 1990-10-06 |           2 |
+| 1990-10-05 |           1 |
++------------+-------------+
+4 rows in set (0.01 sec)
+
+
+=========================================================================================END==============================================================================================================

@@ -1,0 +1,86 @@
+1)WRITE A QUERY THAT COUNTS ALL ORDERS FOR OCTOBER 3.
+
+kd4_rahul_83497@localhost>select count(*) from ORDERS where Odate='1990-10-03';
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.00 sec)
+
+
+==========================================================================================================================================================================================================
+2)WRITE A QUERY THAT COUNTS THE NUMBER OF DIFFERENT NON-NULL CITY VALUES IN THE CUSTOMERS TABLE.
+kd4_vicky_83515>select count(city) from CUSTOMERS where city is not NULL;
+
+kd4_rahul_83497@localhost>select count(*) from CUSTOMERS where City is not null;
++----------+
+| count(*) |
++----------+
+|        7 |
++----------+
+1 row in set (0.00 sec)
+
+
+==========================================================================================================================================================================================================
+3)WRITE A QUERY THAT SELECTS EACH CUSTOMER'S" SMALLEST ORDER.
+
+kd4_rahul_83497@localhost>select Cnum,min(Amt) from ORDERS group by Cnum order by 1;
++------+----------+
+| Cnum | min(Amt) |
++------+----------+
+| 2001 |   767.19 |
+| 2002 |  1713.23 |
+| 2003 |  5160.45 |
+| 2004 |    75.75 |
+| 2006 |  4723.00 |
+| 2007 |  1900.10 |
+| 2008 |    18.69 |
++------+----------+
+7 rows in set (0.01 sec)
+
+
+==========================================================================================================================================================================================================
+4)WRITE A QUERY THAT SELECTS THE FIRST CUSTOMER, IN ALPHABETICAL ORDER, WHOSE NAME BEGINS WITH G.
+
+kd4_rahul_83497@localhost>select min(Cname) from CUSTOMERS where Cname like 'G%';
++------------+
+| min(Cname) |
++------------+
+| Giovanni   |
++------------+
+1 row in set (0.01 sec)
+
+
+==========================================================================================================================================================================================================
+5)WRITE A QUERY THAT SELECTS THE HIGHEST RATING IN EACH CITY.
+
+kd4_rahul_83497@localhost>select City,max(Rating) from CUSTOMERS group by City;
++----------+-------------+
+| City     | max(Rating) |
++----------+-------------+
+| London   |         100 |
+| Rome     |         200 |
+| San Jose |         300 |
+| Berlin   |         300 |
++----------+-------------+
+4 rows in set (0.00 sec)
+
+
+==========================================================================================================================================================================================================
+6)WRITE A QUERY THAT COUNTS THE NUMBER OF SALESPEOPLE REGISTERING ORDERS FOR EACH DAY. (IFA SALESPERSON HAS MORE THAN ONE ORDER ON A GIVENDAY, HE OR SHE SHOULD BE COUNTED ONLY ONCE.).
+
+kd4_rahul_83497@localhost>select Snum,count(distinct Onum) from ORDERS group by Snum order by 1;
++------+----------------------+
+| Snum | count(distinct Onum) |
++------+----------------------+
+| 1001 |                    3 |
+| 1002 |                    3 |
+| 1003 |                    1 |
+| 1004 |                    1 |
+| 1007 |                    2 |
++------+----------------------+
+5 rows in set (0.00 sec)
+
+
+==============================================================================================END=========================================================================================================

@@ -1,0 +1,52 @@
+1)Create a union of two queries that shows the names, cities, and ratings of all customers. Those with rating of 200 or greater will also have the words “High Rating”, while the others will have the     words “Low Rating”.
+
+kd4_rahul_83497@localhost>select Cname,City,'HIGH RATING' Rating from CUSTOMERS where Rating>=200 union select Cname,City,'LOW RATING'  Rating from CUSTOMERS where Rating<200;
++----------+----------+-------------+
+| Cname    | City     | Rating      |
++----------+----------+-------------+
+| Giovanni | Rome     | HIGH RATING |
+| Liu      | San Jose | HIGH RATING |
+| Grass    | Berlin   | HIGH RATING |
+| Cisneros | San Jose | HIGH RATING |
+| Hoffaman | London   | LOW RATING  |
+| Clemens  | London   | LOW RATING  |
+| Pereira  | Rome     | LOW RATING  |
++----------+----------+-------------+
+7 rows in set (0.00 sec)
+
+
+==========================================================================================================================================================================================================
+2)Write a command that produces the name and number of each salesperson and each customer with more than one current order. Put the results in alphabetical order.
+
+kd4_rahul_83497@localhost>select Sname,Snum,Cname from SALESPEOPLE join CUSTOMERS using(Snum) where Snum IN (select Snum from CUSTOMERS group by Snum having count(Snum)>1) order by Sname,Cname;
++--------+------+----------+
+| Sname  | Snum | Cname    |
++--------+------+----------+
+| Peel   | 1001 | Clemens  |
+| Peel   | 1001 | Hoffaman |
+| Serres | 1002 | Grass    |
+| Serres | 1002 | Liu      |
++--------+------+----------+
+4 rows in set (0.01 sec)
+
+
+==========================================================================================================================================================================================================
+3)Form a union of three queries. Have the first select the snums of all salespeople in San Jose; the second, the cnums of all customers in San Jose; and the third the onums of all orders on October 3. Retain duplicates between the last two queries but eliminate any redundancies between either of them and the first.
+
+kd4_rahul_83497@localhost>select Snum from SALESPEOPLE where City='San Jose' union select Cnum from CUSTOMERS where City='San Jose' union select Onum from ORDERS where odate='1990-10-03';
++------+
+| Snum |
++------+
+| 1002 |
+| 2003 |
+| 2008 |
+| 3001 |
+| 3003 |
+| 3002 |
+| 3005 |
+| 3006 |
++------+
+8 rows in set (0.01 sec)
+
+
+==============================================================================================END=========================================================================================================

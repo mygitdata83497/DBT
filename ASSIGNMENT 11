@@ -1,0 +1,40 @@
+1)WRITE A QUERY THAT USES A SUBQUERY TO OBTAIN ALL ORDERS FOR THE CUSTOMER NAMED CISNEROS. ASSUME YOU DO NOT KNOW HIS CUSTOMER NUMBER (CNUM). 
+
+kd4_rahul_83497@localhost>select * from ORDERS where Cnum=(Select Cnum from CUSTOMERS where Cname='Cisneros');
++------+---------+------------+------+------+
+| Onum | Amt     | Odate      | Cnum | Snum |
++------+---------+------------+------+------+
+| 3001 |   18.69 | 1990-10-03 | 2008 | 1007 |
+| 3006 | 1098.16 | 1990-10-03 | 2008 | 1007 |
++------+---------+------------+------+------+
+2 rows in set (0.00 sec)
+
+
+==========================================================================================================================================================================================================
+02)WRITE A QUERY THAT PRODUCES THE NAMES AND RATINGS OF ALL CUSTOMERS WHO HAVE ABOVE-AVERAGE ORDERS. 
+
+kd4_rahul_83497@localhost>select Cname,Rating from CUSTOMERS where CUSTOMERS.Rating>(select avg(rating) from CUSTOMERS);
++----------+--------+
+| Cname    | Rating |
++----------+--------+
+| Giovanni |    200 |
+| Liu      |    200 |
+| Grass    |    300 |
+| Cisneros |    300 |
++----------+--------+
+4 rows in set (0.00 sec)
+
+
+==========================================================================================================================================================================================================
+3)WRITE A QUERY THAT SELECTS THE TOTAL AMOUNT IN ORDERS FOR EACH SALESPERSON FOR WHOM THIS TOTAL IS GREATER THAN THE AMOUNT OF THE LARGEST ORDER IN THE TABLE.
+
+kd4_rahul_83497@localhost>SELECT MAX(Amt), SUM(Amt) AS total_amount FROM ORDERS GROUP BY Snum HAVING SUM(amt) > (SELECT MAX(amt) FROM ORDERS);
++----------+--------------+
+| MAX(Amt) | total_amount |
++----------+--------------+
+|  9891.88 |     15382.07 |
++----------+--------------+
+1 row in set (0.00 sec)
+
+
+============================================================================================END===========================================================================================================
