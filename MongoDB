@@ -1,0 +1,198 @@
+Q1) Install MongoDB database server
+Answer-->
+sudo apt-get install gnupg curl
+
+=========================================================================================================================================================================================================
+Q2) Create a directory/folder to store MongoDB datafiles
+Answer-->
+curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg \--dearmor
+
+==========================================================================================================================================================================================================
+Q3) Set necessary path environment variable
+Answer-->
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+
+=========================================================================================================================================================================================================
+Q4) Startup MongoDB database
+Answer-->
+sudo systemctl start mongod
+
+=========================================================================================================================================================================================================
+Q5) Connect to MongoDB database through MongoDB shell command line interface the
+Answer-->
+sunbeam@sunbeam-student:~$ mongosh
+Current Mongosh Log ID:	65f7225104339db3fedb83af
+Connecting to:		mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.0
+Using MongoDB:		7.0.6
+Using Mongosh:		2.2.0
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-03-17T22:32:52.713+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2024-03-17T22:32:53.634+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2024-03-17T22:32:53.635+05:30: vm.max_map_count is too low
+------
+
+==========================================================================================================================================================================================================
+Q6) View list of available databases
+Answer-->
+test> show dbs
+admin   40.00 KiB
+config  72.00 KiB
+local   72.00 KiB
+
+=========================================================================================================================================================================================================
+Q7)Create a new database named CDAC and connect to it
+Answer-->
+test> use cdac
+switched to db cdac
+
+=========================================================================================================================================================================================================
+Q8)View list of available collections in CDAC database
+Answer-->
+cdac> show collections;
+library
+
+=========================================================================================================================================================================================================
+Q9) Create a new collection by the name of LIBRARY
+Answer-->
+cdac> db.createCollection("library")
+{ ok: 1 }
+
+=========================================================================================================================================================================================================
+Q10) Insert the following document in the
+LIBRARY collection:-
+title: 'MongoDB programming',
+author: 'Sameer', likes: 100
+Answer-->
+cdac> db.library.insert({title:'MongoDB Pprogramming', author:'sameer',like:100})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f563e2ef3c81851cdb83b0') }
+}
+
+=========================================================================================================================================================================================================
+Q11) View the recently inserted document and note the id field
+Answer-->
+cdac> db.library.find()
+[
+  {
+    _id: ObjectId('65f563e2ef3c81851cdb83b0'),
+    title: 'MongoDB Pprogramming',
+    author: 'sameer',
+    like: 100
+  }
+]
+
+=========================================================================================================================================================================================================
+Q12) Insert another document in the LIBRARY collection as follows:-
+title: 'MySQL programming',
+authors: ['Jack', 'Jill'], likes: 200
+Answer-->
+cdac> db.library.insert({title:'MongoDB Pprogramming', author:['jack','jill'],like:200})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65f565efef3c81851cdb83b2') }
+}
+
+=========================================================================================================================================================================================================
+Q13) View the inserted documents
+Answer-->
+cdac> db.library.find()
+[
+  {
+    _id: ObjectId('65f563e2ef3c81851cdb83b0'),
+    title: 'MongoDB Pprogramming',
+    author: 'sameer',
+    like: 100
+  },
+  
+  {
+    _id: ObjectId('65f565efef3c81851cdb83b2'),
+    title: 'MongoDB Pprogramming',
+    author: [ 'jack', 'jill' ],
+    like: 200
+  }
+]
+
+==========================================================================================================================================================================================================
+Q14) View only the first inserted document
+Answer-->
+cdac> db.library.findOne()
+{
+  _id: ObjectId('65f563e2ef3c81851cdb83b0'),
+  title: 'MongoDB Pprogramming',
+  author: 'sameer',
+  like: 100
+}
+
+=========================================================================================================================================================================================================
+Q15) View the documents using the pretty () method
+Answer-->
+cdac> db.library.find().pretty()
+[
+  {
+    _id: ObjectId('65f563e2ef3c81851cdb83b0'),
+    title: 'MongoDB Pprogramming',
+    author: 'sameer',
+    like: 100
+  },
+ 
+  {
+    _id: ObjectId('65f565efef3c81851cdb83b2'),
+    title: 'MongoDB Pprogramming',
+    author: [ 'jack', 'jill' ],
+    like: 200
+  }
+]
+
+=========================================================================================================================================================================================================
+Q16) Update the document where author name Sameer and change it to Sameer Dehadrai
+Answer-->
+cdac> db.library.update({ author:'sameer'},{$set:{author:'sameer dehadrai'}})
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+=========================================================================================================================================================================================================
+Q17) Delete all documents that have 100 likes
+Answer-->
+cdac> db.library.remove({like:100})
+DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+{ acknowledged: true, deletedCount: 2 }
+cdac> 
+
+=========================================================================================================================================================================================================
+Q18) Drop the LIBRARY collection
+Answer-->
+cdac> db.library.remove({like:100})
+DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+{ acknowledged: true, deletedCount: 2 }
+cdac> db.library.drop()
+true
+
+=========================================================================================================================================================================================================
+Q19) Drop the CDAC database
+Answer-->
+cdac> db.dropDatabase()
+{ ok: 1, dropped: 'cdac' }
+
+=========================================================================================================================================================================================================
+Q20) Exit from MongoDB shell
+Answer-->
+cdac> exit
+
+=========================================================================================================================================================================================================
+
+Q21) Stop MongoDB server
+
+Answer-->
+CTRL+C
